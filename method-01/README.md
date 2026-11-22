@@ -1,7 +1,7 @@
 # Method 01 — USB-based graphical session control
 
 This historical method explores locking and requesting the unlock of a
-graphical session on Debian 13 using \`udev\`, Bash and \`loginctl\`.
+graphical session on Debian 13 using `udev`, Bash and `loginctl`.
 
 **Recorded status:** validated on Debian installed on the physical SSD,
 including a reboot test. The final **Method 02 — Part 02** setup **disables
@@ -20,21 +20,21 @@ still be used for login or manual unlock.
 | System | Debian GNU/Linux 13 (Trixie), installed directly on the SSD |
 | Desktop and session | GNOME, Wayland |
 | Login manager | GDM |
-| Registered account | \`henrique\` |
+| Registered account | `henrique` |
 | USB flash drive | SanDisk Cruzer Blade |
-| USB vendor/product identifiers | \`0781:5567\` |
-| Reported USB serial | \`4C530101421215115090\` |
+| USB vendor/product identifiers | `0781:5567` |
+| Reported USB serial | `4C530101421215115090` |
 
 ## Behavior of the historical experiment
 
 | Event | Historical expected behavior |
 | --- | --- |
-| Registered USB removed | Lock the graphical session of \`henrique\` |
+| Registered USB removed | Lock the graphical session of `henrique` |
 | Registered USB connected | Request an unlock (historical only; disabled in final setup) |
 | Boot without USB | Traditional password login remains available |
 
 The udev rule detects a USB event and invokes a root-owned script that
-locates the user's graphical session and calls \`loginctl\`. The desktop
+locates the user's graphical session and calls `loginctl`. The desktop
 must honor the lock/unlock request; it is not a standalone login policy.
 
 **Current project behavior:** the connection/unlock rule is disabled;

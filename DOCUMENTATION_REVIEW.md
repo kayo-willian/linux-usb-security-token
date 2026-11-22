@@ -10,15 +10,15 @@ original physical tests again.
 
 | Document | Original review |
 | --- | --- |
-| \`README.md\` | Clarified the real Debian 13 hardware, repository structure, method status, GDM/TTY boundaries and recovery procedure |
-| \`method-01/README.md\` | Preserved the session-lock experiment and its screenshots; distinguished historical automatic unlock from the final configuration |
-| \`method-02/part-01.md\` | Marked USB-or-password as historical; explained shared PAM scope, pads, FAT/UUID cautions and the transition to Part 02 |
-| \`method-02/part-02.md\` | Documented the final USB + password policy, backups, GDM-only PAM rule, removal-lock behavior, TTY recovery, tests and rollback |
+| `README.md` | Clarified the real Debian 13 hardware, repository structure, method status, GDM/TTY boundaries and recovery procedure |
+| `method-01/README.md` | Preserved the session-lock experiment and its screenshots; distinguished historical automatic unlock from the final configuration |
+| `method-02/part-01.md` | Marked USB-or-password as historical; explained shared PAM scope, pads, FAT/UUID cautions and the transition to Part 02 |
+| `method-02/part-02.md` | Documented the final USB + password policy, backups, GDM-only PAM rule, removal-lock behavior, TTY recovery, tests and rollback |
 
 ## Accuracy limits of the original review
 
-- The original logs recorded changes to udev, \`common-auth\`, \`gdm-password\` and successful \`pamtester\` authentications.
-- Rejected logins, physical behavior and reboot persistence were reported by the original user. Negative \`pamtester\` transcripts or missing screenshots were **not invented**.
+- The original logs recorded changes to udev, `common-auth`, `gdm-password` and successful `pamtester` authentications.
+- Rejected logins, physical behavior and reboot persistence were reported by the original user. Negative `pamtester` transcripts or missing screenshots were **not invented**.
 - The earlier pad-checking error was preserved as a historical result, not proof that removal caused corruption.
 - The Method 01 automatic unlock scenario was retained only as history; the final Part 02 setup leaves that feature disabled.
 - Other users, services, automatic login, fingerprint authentication and SSH were **not validated** in the original scope.

@@ -4,7 +4,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
 if [[ ${1:-} == '--help' ]]; then
-    printf 'Usage: bash scripts/diagnostico.sh\nRead-only environment checks; does not modify PAM, rules, mounts or pads.\n'
+    printf 'Usage: bash scripts/diagnostics.sh\nRead-only environment checks; does not modify PAM, rules, mounts or pads.\n'
     exit 0
 fi
 [[ $# == 0 ]] || fail 'Unknown argument; use --help.'

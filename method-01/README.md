@@ -42,6 +42,6 @@ the removal/lock rule remains active. The actual USB + password
 authentication policy is documented in
 [Method 02 — Part 02](../method-02/part-02.md).
 
-Historical screenshots remain in [images](images/). The files are
+Historical screenshots remain in [images](images/01-2026-10-01-13-42-10.png). The files are
 preserved as original visual evidence. Their existence does not establish
 new tests beyond those reported in the original project.

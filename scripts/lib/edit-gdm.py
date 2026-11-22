@@ -67,7 +67,7 @@ def process(path, check=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("file", type=Path)
-    parser.add_argument("--check", action="store_true", help="consulta sem gravar")
+    parser.add_argument("--check", action="store_true", help="read-only check")
     args = parser.parse_args()
     try:
         return process(args.file, args.check)

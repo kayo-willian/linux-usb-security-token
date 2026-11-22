@@ -3,15 +3,17 @@
 
 Educational project demonstrating how to use a standard USB flash drive for session control and authentication on Linux.
 
+**Fork note:** This repository is a language-standardized fork of [rique-decoder/linux-usb-security-token](https://github.com/rique-decoder/linux-usb-security-token). The original developer's GDM/PAM/udev design and hardware validation remain credited to the upstream project; renaming and translating helper files is not a redesign of that authentication system.
+
 **Current status:** Method 02 — Part 02 validated on Debian 13 installed on a Lenovo IdeaPad 3i, including post-reboot testing. GDM requires USB flash drive + password; removing the USB drive locks the graphical session, and reconnecting it does not automatically unlock it.
 
 ## Documentation and Stage Order
 
 | Stage | Objective | Status |
 | --- | --- | --- |
-| [Method 1](metodo-01/README_USB_Token.md) | Lock and request unlock with USB events via udev and loginctl | Validated as an experiment; in the final setup, only lock-on-removal remains active |
-| [Method 02 — Part 01](metodo-02/README_USB_Token_Metodo_02_Parte_01.md) | Authenticate via USB **or** password with pam_usb | Validated; policy replaced by Part 02 |
-| [Method 02 — Part 02](metodo-02/README_USB_Token_Metodo_02_Parte_02.md) | Require USB **and** password in GDM while preserving TTY recovery | Validated on the laptop, including physical tests and reboot |
+| [Method 1](method-01/README.md) | Lock and request unlock with USB events via udev and loginctl | Validated as an experiment; in the final setup, only lock-on-removal remains active |
+| [Method 02 — Part 01](method-02/part-01.md) | Authenticate via USB **or** password with pam_usb | Validated; policy replaced by Part 02 |
+| [Method 02 — Part 02](method-02/part-02.md) | Require USB **and** password in GDM while preserving TTY recovery | Validated on the laptop, including physical tests and reboot |
 
 Previous documents preserve project history. Do not reapply the unlock rules from Method 1 or the global USB profile from Part 01 over the final configuration.
 
@@ -77,17 +79,18 @@ Comment out only this line:
 # auth required pam_usb.so
 ```
 
-Save the file, return to the graphical interface, and start a new authentication attempt. GDM will accept the password without the USB drive again. Restarting GDM is not required. The [Part 02 guide](metodo-02/README_USB_Token_Metodo_02_Parte_02.md#9-recuperação-sem-o-pendrive) covers the full procedure, re-enabling, and backup restoration.
+Save the file, return to the graphical interface, and start a new authentication attempt. GDM will accept the password without the USB drive again. Restarting GDM is not required. The [Part 02 guide](method-02/part-02.md#9-recover-access-without-the-usb-stick) covers recovery and backup restoration. See also [temporarily disabling both USB mechanisms](DISABLE_USB_TOKEN.md).
 
 ## Actual Structure
 
 * `README.md`: overview and final state.
-* `metodo-01/README_USB_Token.md`: session control history.
-* `metodo-01/images/`: existing screenshots from Method 1.
-* `metodo-02/README_USB_Token_Metodo_02_Parte_01.md`: USB-or-password history.
-* `metodo-02/README_USB_Token_Metodo_02_Parte_02.md`: USB + password implementation and recovery.
-* `metodo-02/images/`: existing screenshots from Part 01.
-* `REVISAO_DOCUMENTACAO.md`: log of corrections made in this documentation review.
+* `method-01/README.md`: session control history.
+* `method-01/images/`: existing screenshots from Method 1.
+* `method-02/part-01.md`: USB-or-password history.
+* `method-02/part-02.md`: USB + password implementation and recovery.
+* `method-02/images/`: existing screenshots from Part 01.
+* `DOCUMENTATION_REVIEW.md`: historical review record.
+* `DISABLE_USB_TOKEN.md`: reversible USB authentication and session-lock disablement.
 * `LICENSE`: existing repository license.
 
 ## Interactive Tools
@@ -111,3 +114,9 @@ The `scripts/` directory contains the tools, and `tests/` contains checks execut
 * [udev](https://manpages.debian.org/trixie/udev/udev.7.en.html)
 
 Authentication and reboot tests were performed and confirmed by the user on the laptop. This documentation revision does not perform remote changes on the machine.
+
+## Working language in this fork
+
+English is the canonical language for code, filenames, helper output and technical documentation. A separate Brazilian Portuguese translation may be added in the future; the original historical documents remain available through Git history. Pull request titles and descriptions may use Brazilian Portuguese for easier maintainer review.
+
+Project helper files may be renamed, but Linux system interfaces such as `gdm-password`, `pam_usb.so`, `/etc/pam.d/common-auth` and `/etc/udev/rules.d/80-usb.rules` retain their real names. The educational GDM/TTY architecture is unchanged.

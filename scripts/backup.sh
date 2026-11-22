@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-source "$SCRIPT_DIR/lib/comum.sh"
+source "$SCRIPT_DIR/lib/common.sh"
 
 if [[ ${1:-} == '--help' ]]; then
-    printf 'Uso: sudo bash scripts/backup.sh\nCopia configurações para um diretório privado em /root. Não altera autenticação.\n'
+    printf 'Usage: sudo bash scripts/backup.sh\nCopies configuration to a private directory under /root; does not change authentication.\n'
     exit 0
 fi
-[[ $# == 0 ]] || falhar 'argumento desconhecido; use --help.'
-criar_backup
-printf 'Guarde esse caminho. O backup contém configurações PAM; não o publique.\n'
-printf 'Consulte a Parte 02 para restaurar os arquivos; este script não faz restauração automática.\n'
+[[ $# == 0 ]] || fail 'Unknown argument; use --help.'
+create_backup
+printf 'Keep this path private. The backup contains PAM configuration; do not publish it.\n'
+printf 'See Method 02 Part 02 for rollback. This script does not restore files automatically.\n'

@@ -1,38 +1,38 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-source "$SCRIPT_DIR/lib/comum.sh"
+source "$SCRIPT_DIR/lib/common.sh"
 
 if [[ ${1:-} == '--help' ]]; then
-    printf 'Uso: bash scripts/menu.sh\nMenu de diagnóstico, backup, testes e recuperação.\n'
+    printf 'Usage: bash scripts/menu.sh\nMenu for diagnostics, backups, authentication tests and recovery.\n'
     exit 0
 fi
-[[ $# == 0 ]] || falhar 'argumento desconhecido; use --help.'
-exigir_terminal
+[[ $# == 0 ]] || fail 'Unknown argument; use --help.'
+require_terminal
 
-administrar() {
+run_as_admin() {
     if (( EUID == 0 )); then
         bash "$@"
     else
-        exigir_comando sudo
+        require_command sudo
         sudo bash "$@"
     fi
 }
 
 while true; do
     printf '\nLinux USB Security Token\n'
-    printf '1. Consultar diagnóstico\n2. Criar backup\n3. Testar autenticação\n4. Recuperar acesso gráfico\n0. Sair\n'
-    read -r -p 'Escolha: ' escolha || exit 0
-    case "$escolha" in
-        1) bash "$SCRIPT_DIR/diagnostico.sh" || printf 'Diagnóstico terminou com erro.\n' ;;
-        2) administrar "$SCRIPT_DIR/backup.sh" || printf 'Backup terminou com erro.\n' ;;
+    printf '1. View diagnostics\n2. Create backup\n3. Test authentication\n4. Recover graphical login\n0. Exit\n'
+    read -r -p 'Choice: ' choice || exit 0
+    case "$choice" in
+        1) bash "$SCRIPT_DIR/diagnostics.sh" || printf 'Diagnostics finished with an error.\n' ;;
+        2) run_as_admin "$SCRIPT_DIR/backup.sh" || printf 'Backup finished with an error.\n' ;;
         3)
-            read -r -p "Usuário cadastrado [${SUDO_USER:-${USER:-henrique}}]: " usuario || exit 0
-            usuario=${usuario:-${SUDO_USER:-${USER:-henrique}}}
-            administrar "$SCRIPT_DIR/testar-autenticacao.sh" "$usuario" || printf 'Teste interrompido ou terminou com erro; confira as mensagens.\n'
+            read -r -p "Registered user [${SUDO_USER:-${USER:-henrique}}]: " account || exit 0
+            account=${account:-${SUDO_USER:-${USER:-henrique}}}
+            run_as_admin "$SCRIPT_DIR/test-authentication.sh" "$account" || printf 'Test interrupted or finished with an error; review the messages.\n'
             ;;
-        4) administrar "$SCRIPT_DIR/recuperar-acesso.sh" || printf 'Recuperação terminou com erro; confira as mensagens.\n' ;;
+        4) run_as_admin "$SCRIPT_DIR/recover-access.sh" || printf 'Recovery finished with an error; review the messages.\n' ;;
         0) exit 0 ;;
-        *) printf 'Opção inválida.\n' ;;
+        *) printf 'Invalid choice.\n' ;;
     esac
 done

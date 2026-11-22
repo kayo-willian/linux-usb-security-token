@@ -48,9 +48,14 @@ def process(path, check=False):
         with os.fdopen(fd, "wb") as stream:
             stream.write(updated)
             stream.flush()
-            os.fchmod(stream.fileno(), stat.S_IMODE(info.st_mode))
             if os.geteuid() == 0:
                 os.fchown(stream.fileno(), info.st_uid, info.st_gid)
+            os.fchmod(stream.fileno(), stat.S_IMODE(info.st_mode))
+            # Replacing the inode would otherwise drop ACLs and other xattrs.
+            # Abort without replacing the original if any attribute cannot be copied.
+            for name in os.listxattr(path, follow_symlinks=False):
+                value = os.getxattr(path, name, follow_symlinks=False)
+                os.setxattr(temp, name, value, follow_symlinks=False)
             os.fsync(stream.fileno())
         current = path.lstat()
         if (current.st_dev, current.st_ino, current.st_mtime_ns, current.st_size) != (info.st_dev, info.st_ino, info.st_mtime_ns, info.st_size) or path.read_bytes() != data:

@@ -1,7 +1,9 @@
 """Offline tests in temporary files; never touch the host's live PAM stack."""
 import importlib.util
+import os
 from pathlib import Path
 import stat
+from unittest import mock
 import subprocess
 import tempfile
 import unittest
@@ -69,6 +71,43 @@ class GdmRecoveryTests(unittest.TestCase):
 
     def test_preserves_rule_options(self):
         self.assertEqual(editor.prepare(b'  auth required pam_usb.so debug\n'), b'#   auth required pam_usb.so debug\n')
+
+    def test_preserves_extended_file_attributes(self):
+        if not all(hasattr(os, name) for name in ("setxattr", "getxattr", "listxattr")):
+            self.skipTest("Extended attributes are unsupported on this platform")
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'gdm-password'
+            path.write_bytes(EXAMPLE)
+            path.chmod(0o640)
+            attribute = 'user.usb_token_test'
+            try:
+                os.setxattr(path, attribute, b'preserve-this')
+            except OSError as exc:
+                self.skipTest(f"Extended attributes unavailable on test filesystem: {exc}")
+            self.assertEqual(editor.process(path), 0)
+            self.assertEqual(os.getxattr(path, attribute), b'preserve-this')
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o640)
+            self.assertEqual(list(Path(tmp).glob('.gdm-password-usb-*')), [])
+
+    def test_failed_attribute_copy_does_not_modify_original(self):
+        if not all(hasattr(os, name) for name in ("setxattr", "getxattr", "listxattr")):
+            self.skipTest("Extended attributes are unsupported on this platform")
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'gdm-password'
+            path.write_bytes(EXAMPLE)
+            attribute = 'user.usb_token_test'
+            try:
+                os.setxattr(path, attribute, b'keep-original')
+            except OSError as exc:
+                self.skipTest(f"Extended attributes unavailable on test filesystem: {exc}")
+            original_inode = path.stat().st_ino
+            with mock.patch.object(editor.os, 'setxattr', side_effect=PermissionError("Simulated xattr failure")):
+                with self.assertRaises(PermissionError):
+                    editor.process(path)
+            self.assertEqual(path.stat().st_ino, original_inode)
+            self.assertEqual(path.read_bytes(), EXAMPLE)
+            self.assertEqual(os.getxattr(path, attribute), b'keep-original')
+            self.assertEqual(list(Path(tmp).glob('.gdm-password-usb-*')), [])
 
 
 class ShellTests(unittest.TestCase):

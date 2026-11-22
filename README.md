@@ -3,6 +3,8 @@
 
 Educational project demonstrating how to use a standard USB flash drive for session control and authentication on Linux.
 
+**Fork note:** This repository is a language-standardized fork of [rique-decoder/linux-usb-security-token](https://github.com/rique-decoder/linux-usb-security-token). The original developer's GDM/PAM/udev design and hardware validation remain credited to the upstream project; renaming and translating helper files is not a redesign of that authentication system.
+
 **Current status:** Method 02 — Part 02 validated on Debian 13 installed on a Lenovo IdeaPad 3i, including post-reboot testing. GDM requires USB flash drive + password; removing the USB drive locks the graphical session, and reconnecting it does not automatically unlock it.
 
 ## Documentation and Stage Order

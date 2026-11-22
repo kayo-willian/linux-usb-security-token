@@ -1,34 +1,21 @@
-# Método 1 — Controle de sessão com pendrive USB
+# Método 02 — Parte 01: Autenticação USB ou Senha com pam_usb
 
-Guia para configurar o bloqueio e o desbloqueio automático de uma sessão gráfica no Debian 13 usando `udev`, Bash e `loginctl`.
+> **Registro histórico:** esta política foi validada e depois substituída pela [Parte 02 — USB + senha](README_USB_Token_Metodo_02_Parte_02.md). Não reative o perfil USB global sobre a configuração final do projeto.
 
-**Status histórico:** a implementação foi validada no Debian instalado diretamente no SSD, incluindo teste após reinicialização.
+## Ambiente e evidências
 
-> **Estado atual após o Método 02 — Parte 02:** a regra de conexão que solicitava desbloqueio foi comentada. Somente o bloqueio na remoção permanece ativo. Os testes de desbloqueio automático não são mais a configuração final do projeto.
+O projeto começou em uma VM Debian no VirtualBox e posteriormente passou ao Debian 13 instalado diretamente no SSD do Lenovo IdeaPad 3i. Esta Parte 01 preserva os comandos, capturas e resultados relativos à fase em que o pendrive era aceito como alternativa à senha.
 
-Quando usado isoladamente, este método controla uma sessão já iniciada. Ele não autentica o primeiro login e não torna o pendrive obrigatório: a senha continua permitindo entrar e desbloquear a sessão.
+As capturas existentes permanecem nos caminhos originais. Não foram criadas novas capturas nem executados novamente os testes desta etapa durante a revisão documental.
 
-## 1. Ambiente e comportamento esperado
+## Objetivo
 
-| Item | Ambiente validado |
-| --- | --- |
-| Sistema | Debian GNU/Linux 13 (trixie) |
-| Instalação | Diretamente no SSD, sem máquina virtual |
-| Interface gráfica | GNOME |
-| Tipo de sessão | Wayland |
-| Gerenciador de login | GDM |
-| Usuário | `henrique` |
-| Pendrive | SanDisk Cruzer Blade |
-| Vendor ID / Product ID | `0781:5567` |
-| Número de série | `4C530101421215115090` |
+Nesta etapa foi implementada uma autenticação em que o pendrive servia como fator de posse, mantendo a senha tradicional do usuário como alternativa.
 
-| Evento | Resultado esperado |
-| --- | --- |
-| Remover o pendrive cadastrado | Bloquear a sessão gráfica de `henrique` |
-| Reconectar o pendrive cadastrado | Solicitar o desbloqueio da sessão gráfica |
-| Inicializar sem o pendrive | Login convencional continua disponível |
+Resultado esperado:
 
-O `udev` identifica o evento e executa o script como root. O script encontra a sessão gráfica do usuário e chama `loginctl`. O ambiente gráfico precisa atender às solicitações de bloqueio e desbloqueio. A implementação foi validada neste ambiente específico.
+- Com USB conectado → login sem digitar senha.
+- Sem USB conectado → login utilizando senha normalmente.
 
-As capturas estão organizadas cronologicamente e distribuídas junto aos passos correspondentes. A pasta `./images/` deve permanecer ao lado deste README para os caminhos relativos funcionarem no repositório.
+O USB ainda não era obrigatório nesta etapa.
 

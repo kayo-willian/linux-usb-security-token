@@ -87,5 +87,23 @@ class ShellTest(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
 
 
+class DocumentStructureTest(unittest.TestCase):
+    """Protect the original guides against accidental path/content swaps."""
+
+    def test_guides_match_their_expected_topics(self):
+        headings = {
+            'DESABILITAR_TOKEN.md': '# Desabilitar a autenticação por pendrive',
+            'scripts/README.md': '# Ferramentas interativas do projeto',
+            'metodo-01/README_USB_Token.md': '# Método 1 — Controle de sessão',
+            'metodo-02/README_USB_Token_Metodo_02_Parte_01.md': '# Método 02 — Parte 01:',
+            'metodo-02/README_USB_Token_Metodo_02_Parte_02.md': '# Método 02 — Parte 02:',
+        }
+        for name, heading in headings.items():
+            with self.subTest(path=name):
+                first_line = (ROOT / name).read_text(encoding='utf-8').splitlines()[0]
+                self.assertTrue(first_line.startswith(heading), (name, first_line))
+
+
+
 if __name__ == '__main__':
     unittest.main()

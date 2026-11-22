@@ -77,7 +77,7 @@ Comment out only this line:
 # auth required pam_usb.so
 ```
 
-Save the file, return to the graphical interface, and start a new authentication attempt. GDM will accept the password without the USB drive again. Restarting GDM is not required. The [Part 02 guide](https://www.google.com/search?q=metodo-02/README_USB_Token_Metodo_02_Parte_02.md%239-recupera%C3%A7%C3%A3o-sem-o-pendrive) covers the full procedure, re-enabling, and backup restoration.
+Save the file, return to the graphical interface, and start a new authentication attempt. GDM will accept the password without the USB drive again. Restarting GDM is not required. The [Part 02 guide](metodo-02/README_USB_Token_Metodo_02_Parte_02.md#9-recuperação-sem-o-pendrive) covers the full procedure, re-enabling, and backup restoration.
 
 ## Actual Structure
 
@@ -92,7 +92,7 @@ Save the file, return to the graphical interface, and start a new authentication
 
 ## Interactive Tools
 
-The [helper scripts](https://www.google.com/search?q=scripts/README.md) provide diagnostics, backup, guided tests, and recovery. To open the menu from the repository root:
+The [helper scripts](scripts/README.md) provide diagnostics, backup, guided tests, and recovery. To open the menu from the repository root:
 
 ```bash
 bash scripts/menu.sh

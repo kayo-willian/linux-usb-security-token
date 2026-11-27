@@ -1,5 +1,9 @@
 # Method 02 — Part 02: USB + password in GDM
 
+[Português (Brasil)](part-02.pt-BR.md) · [Project overview](../README.md)
+
+Device serials and volume UUIDs are represented by placeholders in the examples.
+
 **Recorded status:** Applied to Debian 13 on a Lenovo IdeaPad 3i and validated by the original maintainer, including a new login after reboot. This English-language adaptation of the historical guide does **not** represent new physical testing.
 
 [Overview](../README.md) · [Part 01 (historical)](part-01.md) · [Method 01](../method-01/README.md) · [Temporarily disable USB protection](../DISABLE_USB_TOKEN.md)
@@ -24,8 +28,8 @@ TTY login and `sudo` continue using the system password. This is the intended re
 | Display/login | GNOME with GDM |
 | Registered user | `henrique` |
 | USB drive | SanDisk Cruzer Blade, nominal 4 GB |
-| Reported serial | `4C530101421215115090` |
-| USB volume | FAT, UUID `9EE3-C03C`; observed as `/dev/sda1` |
+| Reported serial | `EXAMPLE_USB_SERIAL` |
+| USB volume | FAT, UUID `EXAMPLE_VOLUME_UUID`; observed as `/dev/sda1` |
 | SSD | `nvme0n1`, approximately 238.5 GB; ext4 root |
 | pam_usb | Version 0.9.3, previously installed in Part 01 |
 
@@ -101,8 +105,8 @@ cat /etc/udev/rules.d/80-usb.rules
 The following is the **same rule structure with English explanatory comments**, not a new physical test transcript:
 
 ```udev
-# Disabled in Part 02: ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="usb", ENV{ID_VENDOR_ID}=="0781", ENV{ID_MODEL_ID}=="5567", ENV{ID_SERIAL_SHORT}=="4C530101421215115090", RUN+="/usr/local/bin/usb-lock.sh unlock"
-ACTION=="remove", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="usb", ENV{ID_VENDOR_ID}=="0781", ENV{ID_MODEL_ID}=="5567", ENV{ID_SERIAL_SHORT}=="4C530101421215115090", RUN+="/usr/local/bin/usb-lock.sh lock"
+# Disabled in Part 02: ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="usb", ENV{ID_VENDOR_ID}=="0781", ENV{ID_MODEL_ID}=="5567", ENV{ID_SERIAL_SHORT}=="EXAMPLE_USB_SERIAL", RUN+="/usr/local/bin/usb-lock.sh unlock"
+ACTION=="remove", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="usb", ENV{ID_VENDOR_ID}=="0781", ENV{ID_MODEL_ID}=="5567", ENV{ID_SERIAL_SHORT}=="EXAMPLE_USB_SERIAL", RUN+="/usr/local/bin/usb-lock.sh lock"
 ```
 
 The script remains installed and accepts `lock` and `unlock`, but **only the removal rule** is active in the final setup. Reloading udev rules affects future events; do not use `udevadm trigger` to manufacture system-wide USB events. A different flash drive needs its **own reviewed identifiers**; the values above are historical.

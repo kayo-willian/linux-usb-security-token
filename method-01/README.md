@@ -1,5 +1,9 @@
 # Method 01 — USB-based graphical session control
 
+[Português (Brasil)](README.pt-BR.md) · [Project overview](../README.md)
+
+The device serial is shown as a placeholder.
+
 This historical method explores locking and requesting the unlock of a
 graphical session on Debian 13 using `udev`, Bash and `loginctl`.
 
@@ -23,7 +27,7 @@ still be used for login or manual unlock.
 | Registered account | `henrique` |
 | USB flash drive | SanDisk Cruzer Blade |
 | USB vendor/product identifiers | `0781:5567` |
-| Reported USB serial | `4C530101421215115090` |
+| Reported USB serial | `EXAMPLE_USB_SERIAL` |
 
 ## Behavior of the historical experiment
 
@@ -42,6 +46,6 @@ the removal/lock rule remains active. The actual USB + password
 authentication policy is documented in
 [Method 02 — Part 02](../method-02/part-02.md).
 
-Historical screenshots remain in [images](images/01-2026-10-01-13-42-10.png). The files are
+Browse all [17 historical screenshots](images/). The files are
 preserved as original visual evidence. Their existence does not establish
 new tests beyond those reported in the original project.

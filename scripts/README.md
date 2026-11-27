@@ -1,5 +1,7 @@
 # Interactive project tools
 
+[Português (Brasil)](README.pt-BR.md) · [Project overview](../README.md)
+
 Helper scripts for a host that has already been configured according to [Method 02 — Part 02](../method-02/part-02.md). They provide diagnostics, backups, guided authentication testing and a cautious GDM recovery helper; **they do not install pam_usb or configure the complete method**.
 
 ## Start with the menu

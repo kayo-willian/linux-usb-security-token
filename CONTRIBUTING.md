@@ -1,5 +1,7 @@
 # Contribution guidelines for this fork
 
+[Português (Brasil)](CONTRIBUTING.pt-BR.md) · [Project overview](README.md)
+
 This fork preserves the original project's educational architecture:
 GNOME/GDM, PAM with pam_usb, udev session locking, and Bash/Python helper
 scripts. The code is not copied from or coupled to a different USB
@@ -12,10 +14,10 @@ security project.
 - **Brazilian Portuguese is permitted for pull request titles and
   descriptions** to make human review easier.
 - Development prompts to AI assistants may be written in Portuguese,
-  but generated source and documentation should follow the English
+  and generated source and documentation should follow the language
   policy above.
-- A separate Portuguese documentation tree may be added later, with
-  English as the canonical technical reference until then.
+- Keep Brazilian Portuguese translations aligned with the canonical
+  English technical guides.
 - Do **not** rename Linux/system service interfaces such as
   `gdm-password`, `pam_usb.so`, `common-auth` or
   `/etc/udev/rules.d/80-usb.rules`; these are fixed external names.

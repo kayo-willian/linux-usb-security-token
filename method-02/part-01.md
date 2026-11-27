@@ -1,5 +1,7 @@
 # Method 02 — Part 01: USB or password with pam_usb
 
+[Português (Brasil)](part-01.pt-BR.md) · [Project overview](../README.md)
+
 > **Historical configuration.** This experiment was validated and later
 > replaced by [Part 02 — USB **and** password](part-02.md).
 > Do not re-enable its system-wide USB profile over the final policy.
@@ -11,7 +13,7 @@ Debian 13 installed directly on the SSD of a Lenovo IdeaPad 3i.
 This stage records the earlier configuration in which the flash drive
 could act as an alternative to a traditional password.
 
-Existing screenshots were retained at their original relative location.
+The [eight historical screenshots](images/) were retained at their original relative location.
 No new screenshots or repeat tests of this historical stage were claimed
 during the documentation review.
 

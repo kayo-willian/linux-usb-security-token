@@ -1,5 +1,7 @@
 # Temporarily disable USB authentication without deleting the configuration
 
+[Português (Brasil)](DISABLE_USB_TOKEN.pt-BR.md) · [Project overview](README.md)
+
 This guide covers the two mechanisms used by **Linux USB Security Token** on the documented Debian 13 / GNOME / GDM setup: (1) a USB removal rule that locks a graphical session, and (2) a **GDM-only** `pam_usb.so` requirement. It preserves the existing files so the operator can restore their prior configuration.
 
 > **Important:** Read [Method 02 — Part 02](method-02/part-02.md) and have an accessible TTY, working password and a **verified backup** before modifying PAM. These are administrator procedures for the recorded host configuration; they have not been validated against every PAM layout. Do not re-enable the historical *system-wide USB authentication profile* from Part 01 as part of restoring the final Part 02 setup.

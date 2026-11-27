@@ -1,5 +1,7 @@
 # Documentation review — October 1, 2026 (historical record)
 
+[Português (Brasil)](DOCUMENTATION_REVIEW.pt-BR.md) · [Project overview](README.md)
+
 This record describes the original documentation effort preceding the
 English-language fork revision. It was based on the existing repository
 and the commands and test results reported by the original maintainer.

@@ -1,5 +1,8 @@
-
 # Linux USB Security Token
+
+[Português (Brasil)](README.pt-BR.md)
+
+Device serials and volume UUIDs are represented by placeholders in the examples.
 
 Educational project demonstrating how to use a standard USB flash drive for session control and authentication on Linux.
 
@@ -26,8 +29,8 @@ Previous documents preserve project history. Do not reapply the unlock rules fro
 | Desktop / login | GNOME / GDM; Wayland session recorded in Method 1 |
 | Registered user | `henrique` |
 | USB flash drive | SanDisk Cruzer Blade 4 GB nominal; 3.7 GB reported by the system |
-| USB identifiers | `0781:5567`; serial `4C530101421215115090` |
-| USB volume | FAT, UUID `9EE3-C03C` |
+| USB identifiers | `0781:5567`; serial `EXAMPLE_USB_SERIAL` |
+| USB volume | FAT, UUID `EXAMPLE_VOLUME_UUID` |
 | USB authentication | pam_usb 0.9.3 |
 
 The project started in a Debian VM on VirtualBox. The available guides for Method 1 and Part 01 also record later tests; Part 02 was applied to the primary system. Each recorded environment should be respected when reproducing the steps. `/dev/sda1` was the observed device node for the flash drive, not a permanent address.
@@ -81,17 +84,17 @@ Comment out only this line:
 
 Save the file, return to the graphical interface, and start a new authentication attempt. GDM will accept the password without the USB drive again. Restarting GDM is not required. The [Part 02 guide](method-02/part-02.md#9-recover-access-without-the-usb-stick) covers recovery and backup restoration. See also [temporarily disabling both USB mechanisms](DISABLE_USB_TOKEN.md).
 
-## Actual Structure
+## Project Structure
 
-* `README.md`: overview and final state.
-* `method-01/README.md`: session control history.
-* `method-01/images/`: existing screenshots from Method 1.
-* `method-02/part-01.md`: USB-or-password history.
-* `method-02/part-02.md`: USB + password implementation and recovery.
-* `method-02/images/`: existing screenshots from Part 01.
-* `DOCUMENTATION_REVIEW.md`: historical review record.
-* `DISABLE_USB_TOKEN.md`: reversible USB authentication and session-lock disablement.
-* `LICENSE`: existing repository license.
+* [Overview](README.md) — overview and final state.
+* [Method 01](method-01/README.md) — session control history.
+* [Method 01 screenshots](method-01/images/) — existing screenshots from Method 1.
+* [Method 02, Part 01](method-02/part-01.md) — USB-or-password history.
+* [Method 02, Part 02](method-02/part-02.md) — USB + password implementation and recovery.
+* [Part 01 screenshots](method-02/images/) — existing screenshots from Part 01.
+* [Documentation review](DOCUMENTATION_REVIEW.md) — historical review record.
+* [Temporary disablement](DISABLE_USB_TOKEN.md) — reversible USB authentication and session-lock disablement.
+* [License](LICENSE) — existing repository license.
 
 ## Interactive Tools
 
@@ -117,6 +120,6 @@ Authentication and reboot tests were performed and confirmed by the user on the 
 
 ## Working language in this fork
 
-English is the canonical language for code, filenames, helper output and technical documentation. A separate Brazilian Portuguese translation may be added in the future; the original historical documents remain available through Git history. Pull request titles and descriptions may use Brazilian Portuguese for easier maintainer review.
+English is the canonical language for code, filenames, helper output and technical documentation. Brazilian Portuguese editions accompany the English guides; the original historical documents remain available through Git history. Pull request titles and descriptions may use Brazilian Portuguese for easier maintainer review.
 
 Project helper files may be renamed, but Linux system interfaces such as `gdm-password`, `pam_usb.so`, `/etc/pam.d/common-auth` and `/etc/udev/rules.d/80-usb.rules` retain their real names. The educational GDM/TTY architecture is unchanged.
